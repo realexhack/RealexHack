@@ -69,7 +69,7 @@ public class ListMainActivity extends BaseActivity  implements HPPManagerListene
 
     public void checkout_btn_onClick(View view){
         enrol("enrol", "012345");
-        //TestRealex();
+//        TestRealex();
 
         //MainActivity.enrol(this, "enrol", "012345");
     }
@@ -156,6 +156,7 @@ public class ListMainActivity extends BaseActivity  implements HPPManagerListene
         if(f!=null) getFragmentManager()
                 .beginTransaction().remove(f).commit();
 
+        TestRealex();
 
 
     }

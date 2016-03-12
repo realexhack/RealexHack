@@ -27,11 +27,11 @@ public class BaseActivity extends ActionBarActivity {
                 Intent act1 = new Intent(this.getApplicationContext(),MainActivity.class);
                 startActivity(act1);;
                 return true;
-            case R.id.nav_shopping_trolley:
-                Log.d("Menu", "Going to trolley");
-                Intent act2 = new Intent(this.getApplicationContext(),ShoppingTrolley.class);
-                startActivity(act2);;
-                return true;
+//            case R.id.nav_shopping_trolley:
+//                Log.d("Menu", "Going to trolley");
+//                Intent act2 = new Intent(this.getApplicationContext(),ShoppingTrolley.class);
+//                startActivity(act2);;
+//                return true;
             case R.id.nav_map:
                 Log.d("Menu", "Going to nav map");
                 Intent act3 = new Intent(this.getApplicationContext(),MapActivity.class);
