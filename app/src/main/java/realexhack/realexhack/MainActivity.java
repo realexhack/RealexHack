@@ -34,6 +34,14 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
         enrol("enrol","012345");
     }
 
+    public void show_pqcheck_btn_onClick(){
+        enrol("enrol","012345");
+    }
+
+    public void show_realex_btn_onClick(){
+        TestRealex();
+    }
+
     private void enrol(String enrolmentLink, String transcript) {
         Intent intent = new Intent(this, PQCheckActivity.class);
 
