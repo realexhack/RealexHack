@@ -5,22 +5,16 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.realexpayments.hpp.*;
-
-public class MainActivity extends BaseActivity implements HPPManagerListener {
-
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import Model.TrolleyItem;
 import Repository.Trolley;
->>>>>>> f0295fc37bf0b5c3a2b8706c87f091c9153d5852
 
-public class MainActivity extends BaseActivity {
+import com.realexpayments.hpp.*;
+
+public class MainActivity extends BaseActivity implements HPPManagerListener {
     public static Trolley trolley;
     public static Map<String, TrolleyItem> stock;
     @Override
