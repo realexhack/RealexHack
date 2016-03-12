@@ -42,6 +42,11 @@ public class BaseActivity extends ActionBarActivity {
                 Intent act4 = new Intent(this.getApplicationContext(),ScannerActivity.class);
                 startActivity(act4);;
                 return true;
+            case R.id.nav_list:
+                Log.d("Menu", "Going to nav List");
+                Intent act5 = new Intent(this.getApplicationContext(),ListMainActivity.class);
+                startActivity(act5);;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
