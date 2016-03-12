@@ -8,12 +8,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
+import android.app.ActionBar.LayoutParams;
 import Model.TrolleyItem;
 import Repository.Trolley;
 
@@ -22,21 +25,88 @@ import com.postquantum.pqcheck.clientlib.response.ApiKey;
 import com.realexpayments.hpp.*;
 
 public class MainActivity extends BaseActivity implements HPPManagerListener {
-    public static Trolley trolley;
+     Trolley trolley = Trolley.getInstance();
     public static Map<String, TrolleyItem> stock;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        trolley = new Trolley();
+
         trolley.setItems(new ArrayList<TrolleyItem>());
+        populateFakeTrolleyItems();
         stock = new HashMap<String, TrolleyItem>();
         populateStocks();
         setContentView(R.layout.activity_main);
 
-    }
+        final LinearLayout lm = (LinearLayout) findViewById(R.id.linearLayout);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        for(int j=1;j< 9;j++)
+        {
+
+
+            // Create LinearLayout to view elemnts
+            LinearLayout ll = new LinearLayout(this);
+            ll.setOrientation(LinearLayout.HORIZONTAL);
+
+            TextView product = new TextView(this);
+            product.setText(" Item"+j+"    ");
+
+            //Add textView to LinearLayout
+            ll.addView(product);
+
+            TextView price = new TextView(this);
+            price.setText("  £"+j+"     ");
+
+            //Add textView to LinearLayout
+            ll.addView(price);
+
+            final Button btn = new Button(this);
+            btn.setId(j+1);
+            btn.setText("Add To Cart");
+
+            // set the layoutParams on the button
+            btn.setLayoutParams(params);
+
+            final int index = j;
+
+            //Create click listener for dynamically created button
+            btn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    //Clicked button index
+                    Log.i("TAG", "index :" + index);
+
+
+                    Toast.makeText(getApplicationContext(),
+                            "Now Cart size: ",
+                            Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            //Add button to LinearLayout
+            ll.addView(btn);
+
+            //Add LinearLayout to XML layout
+            lm.addView(ll);
+        }
+
+        /******** Dynamically create view elements - End **********/
+
+       /* secondBtn.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+
+                Intent i = new Intent(getBaseContext(), SecondScreen.class);
+                startActivity(i);
+            }
+        });*/
+
+
+
+}
 
     public void show_pqcheck_btn_onClick(View view){
-        enrol("enrol","012345");
+        enrol("enrol", "012345");
     }
 
     public void show_realex_btn_onClick(View view){
@@ -50,7 +120,7 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
         intent.setAction(PQCheckActivity.ACTION_ENROL);
 
         // Set the enrolment link as the data URI.
-        intent.setData(Uri.parse(enrolmentLink));
+        //intent.setData(Uri.parse(enrolmentLink));
 
         intent.putExtra(PQCheckActivity.EXTRA_USER_IDENTIFIER, "627b197f-10ca-42b2-b733-d121948347b5");
 
@@ -115,7 +185,7 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
 
     @Override
     public void hppManagerCompletedWithResult(Object o) {
-        Log.d("completed","completed");
+        Log.d("completed", "completed");
         Toast.makeText(getApplicationContext(),
                 "Payment Successful", Toast.LENGTH_LONG).show();
         Fragment f = getFragmentManager().findFragmentByTag("hppManagerFragment");
@@ -137,5 +207,13 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
 
     private void populateStocks() {
         stock.put("5449000028921", new TrolleyItem(1, "coke", 2,5));
+    }
+
+    private  void populateFakeTrolleyItems(){
+        for(int i =1;i<10;i++){
+            TrolleyItem item = new TrolleyItem(i,"coke"+i,2,5);
+            trolley.add(item);
+        }
+
     }
 }
