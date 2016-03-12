@@ -139,6 +139,28 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
                 startActivityForResult(intent, 1234);
     }
 
+    private void authorise() {
+        Intent intent = new Intent(this, PQCheckActivity.class);
+
+        // Set the action ACTION_AUTHORISE.
+        intent.setAction(PQCheckActivity.ACTION_AUTHORISE);
+
+        intent.putExtra(PQCheckActivity.EXTRA_USER_IDENTIFIER, "627b197f-10ca-42b2-b733-d121948347b5");
+
+        intent.putExtra(PQCheckActivity.EXTRA_API_KEY, new ApiKey(UUID.fromString("627b097f-10ca-42b2-b733-d121948347b5")
+                , "ThCe8ggd4G0afu0Qw/hIJmnzriig3TNCfWNuvSB1jBgsFDbqcNV4qQepEmAjYFkXJ7m9pNdR1kR5Vo+OkFsR8g=="));
+
+        intent.putExtra(PQCheckActivity.EXTRA_HASH, 0);
+
+        intent.putExtra(PQCheckActivity.EXTRA_SUMMARY,123);
+
+        // Set the authorisation link as the data URI.
+        //intent.setData(Uri.parse(authorisationLink));
+
+        // MY_AUTHORISATION_REQUEST_CODE is arbitrary and is only used within this activity.
+        startActivityForResult(intent, 5678);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -160,6 +182,23 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
                     Log.d("error",error);
                     Toast.makeText(getApplicationContext(),
                             "Enrolment Error", Toast.LENGTH_LONG).show();
+                    break;
+            }
+        }
+        else if(requestCode == 5678){
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    TestRealex();
+                    // We have completed the authorisation process successfully.
+                    break;
+                case PQCheckActivity.RESULT_CLIENT_ERROR:
+                case PQCheckActivity.RESULT_SERVER_ERROR:
+                    // An error ocurred. For more details, check EXTRA_RESULT_ERROR_MESSAGE.
+                    Bundle extras = data.getExtras();
+                    String error = extras.getString(PQCheckActivity.EXTRA_RESULT_ERROR_MESSAGE);
+                    break;
+                case PQCheckActivity.RESULT_TIMEOUT:
+                    // The expiry time was reached.
                     break;
             }
         }
