@@ -46,7 +46,8 @@ public class ScannerActivity extends BaseActivity implements OnClickListener {
         TrolleyItem item = MainActivity.stock.get(scanContent);
         int quantity = Integer.parseInt(quantityString);
         item.setQuantity(quantity);
-        MainActivity.trolley.add(item);
+        Trolley trolley = Trolley.getInstance();
+        trolley.add(item);
     }
 
 
