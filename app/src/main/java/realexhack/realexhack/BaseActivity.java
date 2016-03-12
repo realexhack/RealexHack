@@ -1,6 +1,5 @@
 package realexhack.realexhack;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +36,11 @@ public class BaseActivity extends ActionBarActivity {
                 Log.d("Menu", "Going to nav map");
                 Intent act3 = new Intent(this.getApplicationContext(),MapActivity.class);
                 startActivity(act3);;
+                return true;
+            case R.id.nav_scan:
+                Log.d("Menu", "Going to nav map");
+                Intent act4 = new Intent(this.getApplicationContext(),ScannerActivity.class);
+                startActivity(act4);;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

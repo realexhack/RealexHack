@@ -10,10 +10,25 @@ import com.realexpayments.hpp.*;
 
 public class MainActivity extends BaseActivity implements HPPManagerListener {
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import Model.TrolleyItem;
+import Repository.Trolley;
+>>>>>>> f0295fc37bf0b5c3a2b8706c87f091c9153d5852
+
+public class MainActivity extends BaseActivity {
+    public static Trolley trolley;
+    public static Map<String, TrolleyItem> stock;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        trolley = new Trolley(new ArrayList<TrolleyItem>());
+        stock = new HashMap<String, TrolleyItem>();
+        populateStocks();
         setContentView(R.layout.activity_main);
         TestRealex();
     }
@@ -60,5 +75,9 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
 
     @Override
     public void hppManagerCancelled() { //operation was canceled
+    }
+
+    private void populateStocks() {
+        stock.put("5449000028921", new TrolleyItem(1, "coke", 2,5));
     }
 }
