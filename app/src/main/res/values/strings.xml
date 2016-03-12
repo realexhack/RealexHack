@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Loyal Trolley</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Sophie</string>
     <string name="action_settings">Settings</string>
     <string name="name_trolley">Trolley</string>
     <string name="name_home">Home</string>
