@@ -3,6 +3,7 @@
     package="realexhack.realexhack" >
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,5 +29,8 @@
             android:label="@string/app_name" >
         </activity>
     </application>
+
+    <!-- Required for BLE scanning on Android 6.0 and above. -->
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
 </manifest>
