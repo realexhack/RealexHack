@@ -7,4 +7,7 @@
     <string name="name_home">Home</string>
     <string name="Trolley_text">trolley</string>
     <string name="name_map">Map</string>
+    <string name="scan">Scan</string>
+    <string name="name_scan">Scan</string>
+    <string name="scan_quantity">Quantity</string>
 </resources>
