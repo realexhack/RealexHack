@@ -53,13 +53,15 @@ public class ScannerActivity extends BaseActivity implements OnClickListener {
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 //retrieve scan result
-        setIntent(intent);
+//        setIntent(intent);
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
 //we have a result
             scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
             addToTrolley();
+            Intent act3 = new Intent(this.getApplicationContext(),ListMainActivity.class);
+            startActivity(act3);;
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),
