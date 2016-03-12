@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,19 +27,19 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        trolley = new Trolley(new ArrayList<TrolleyItem>());
+        trolley = new Trolley();
+        trolley.setItems(new ArrayList<TrolleyItem>());
         stock = new HashMap<String, TrolleyItem>();
         populateStocks();
         setContentView(R.layout.activity_main);
-        //TestRealex();
+
+    }
+
+    public void show_pqcheck_btn_onClick(View view){
         enrol("enrol","012345");
     }
 
-    public void show_pqcheck_btn_onClick(){
-        enrol("enrol","012345");
-    }
-
-    public void show_realex_btn_onClick(){
+    public void show_realex_btn_onClick(View view){
         TestRealex();
     }
 

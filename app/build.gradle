@@ -30,6 +30,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.estimote:sdk:0.9.4@aar'
     compile 'com.android.support:appcompat-v7:21.0.+'
+    compile 'com.android.support:design:23.0.1'
     compile 'com.realexpayments.hpp.sdk:rxp-hpp-android:1.0'
     compile 'com.postquantum.pqcheck:pqcheck-android-sdk:1.0.0-beta2'
 }

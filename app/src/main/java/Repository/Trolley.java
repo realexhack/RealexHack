@@ -15,6 +15,10 @@ public class Trolley {
     public Trolley(List<TrolleyItem> items) {
         this.items = items;
     }
+
+    public Trolley() {
+    }
+
     public List<TrolleyItem> getItems() {
         return items;
     }
