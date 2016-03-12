@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":app" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="RealexHack" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":app" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="RealexHack" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
@@ -69,9 +69,14 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/debug" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.estimote/sdk/0.9.4/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.postquantum.pqcheck/pqcheck-android-sdk/1.0.0-beta2/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.realexpayments.hpp.sdk/rxp-hpp-android/1.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
@@ -82,11 +87,25 @@
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="converter-gson-2.0.0-beta4" level="project" />
+    <orderEntry type="library" exported="" name="retrofit-1.7.1" level="project" />
+    <orderEntry type="library" exported="" name="retrofit-2.0.0-beta4" level="project" />
+    <orderEntry type="library" exported="" name="logging-interceptor-3.0.0-RC1" level="project" />
+    <orderEntry type="library" exported="" name="pqcheck-android-sdk-1.0.0-beta2" level="project" />
+    <orderEntry type="library" exported="" name="animated-vector-drawable-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="design-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="pqcheck-clientlib-1.0.0-beta1" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-23.2.1" level="project" />
     <orderEntry type="library" exported="" name="sdk-0.9.4" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="httpcore-4.4.4" level="project" />
+    <orderEntry type="library" exported="" name="support-vector-drawable-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="okio-1.6.0" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="rxp-hpp-android-1.0" level="project" />
+    <orderEntry type="library" exported="" name="okhttp-3.0.1" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.5" level="project" />
   </component>
 </module>

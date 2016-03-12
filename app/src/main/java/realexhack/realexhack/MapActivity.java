@@ -2,27 +2,19 @@ package realexhack.realexhack;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
-import com.estimote.sdk.MacAddress;
-import com.estimote.sdk.Nearable;
 import com.estimote.sdk.Region;
 import com.estimote.sdk.SystemRequirementsChecker;
+import com.estimote.sdk.Utils;
 
 import java.util.List;
 import java.util.UUID;
-
-import Util.MyBeacon;
-import Util.MyNearable;
 
 /**
  * Created by josekalladanthyil on 12/03/16.
@@ -32,17 +24,16 @@ public class MapActivity extends BaseActivity {
     private String treasureX = "11692:10260";
     private BeaconManager beaconManager;
     private Region region;
+    private Beacon oldBeacon;
 
-    public static final String EXTRAS_TARGET_ACTIVITY = "extrasTargetActivity";
-    public static final String EXTRAS_BEACON = "extrasBeacon";
-    private static final Region ALL_ESTIMOTE_BEACONS_REGION = new Region("rid", null, null, null);
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        ImageView view = (ImageView)findViewById(R.id.imageView1);
-        view.setColorFilter(Color.RED);
+        imageView = (ImageView)findViewById(R.id.imageView1);
+        imageView.setBackgroundColor(Color.rgb(144, 1144, 144));
         Log.d("MapActivity", "In Map Activity");
         displayTemperature();
         region = new Region("ranged region",
@@ -54,39 +45,65 @@ public class MapActivity extends BaseActivity {
                 if (!list.isEmpty()) {
                     final Beacon nearestBeacon = list.get(0);
                     runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Just in case if there are multiple beacons with the same uuid, major, minor.
-                        Beacon foundBeacon = null;
-                        for (Beacon rangedBeacon : list) {
-                            if (treasureX.equals(getId(rangedBeacon))) {
-                                foundBeacon = rangedBeacon;
+                        @Override
+                        public void run() {
+                            // Just in case if there are multiple beacons with the same uuid, major, minor.
+                            Beacon foundBeacon = null;
+                            for (Beacon rangedBeacon : list) {
+                                if (treasureX.equals(getId(rangedBeacon))) {
+                                    foundBeacon = rangedBeacon;
+                                }
+                            }
+                            if (foundBeacon != null) {
+                                updateDistanceView(foundBeacon);
                             }
                         }
-                        if (foundBeacon != null) {
-                            updateDistanceView(foundBeacon);
-                        }
-                    }
-                });
+                    });
                 }
             }
         });
     }
 
     private void updateDistanceView(Beacon foundBeacon) {
-        Beacon beacon = foundBeacon;
-        float prevDistance = getDistanceFromColour();
-        float currentDistance = beacon.getRssi()/beacon.getMeasuredPower();;
+        double prevDistance = 0;
+        if (oldBeacon != null) {
+            prevDistance = Utils.computeAccuracy(oldBeacon)*100;
+        }
+        double currentDistance = Utils.computeAccuracy(foundBeacon)*100;
+        oldBeacon = foundBeacon;
+
+        TextView tv = (TextView)findViewById(R.id.distanceView);
+        tv.setText("Distance "+ Utils.computeAccuracy(foundBeacon));
         if(prevDistance > currentDistance) {
-//            goRed();
+            double diff = currentDistance - prevDistance;
+            ColorDrawable drawable = (ColorDrawable) imageView.getBackground();
+            int r,b,g,c, newR, newB;
+            c = drawable.getColor();
+            r = Color.red(c);
+            g = Color.green(c);
+            b = Color.blue(c);
+            newR = (int) (r+diff);
+            newB = (int) (b-diff);
+            imageView.setColorFilter(Color.rgb(newR, g, newB));
+            imageView.setBackgroundColor(Color.rgb(newR, g, newB));
+
+
         } else {
 //            goBlue();
+            double diff = currentDistance - prevDistance;
+            ColorDrawable drawable = (ColorDrawable) imageView.getBackground();
+            int r,b,g,c, newR, newB;
+            c = drawable.getColor();
+            r = Color.red(c);
+            g = Color.green(c);
+            b = Color.blue(c);
+            newR = (int) (r-diff);
+            newB = (int) (b+diff);
+            imageView.setColorFilter(Color.rgb(newR, g, newB));
+            imageView.setBackgroundColor(Color.rgb(newR, g, newB));
         }
     }
 
-    private float getDistanceFromColour() {
-        return 0;
-    }
 
     @Override
     protected void onStop() {

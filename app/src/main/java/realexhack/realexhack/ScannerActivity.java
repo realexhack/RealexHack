@@ -22,15 +22,12 @@ import Repository.Trolley;
  */
 public class ScannerActivity extends BaseActivity implements OnClickListener {
     private Button scanBtn;
-    private TextView formatTxt, contentTxt;
     String scanContent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
         scanBtn = (Button)findViewById(R.id.scan_button);
-        formatTxt = (TextView)findViewById(R.id.scan_format);
-        contentTxt = (TextView)findViewById(R.id.scan_content);
         scanBtn.setOnClickListener(this);
     }
 
@@ -41,9 +38,7 @@ public class ScannerActivity extends BaseActivity implements OnClickListener {
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
         }
-        if(v.getId() == R.id.scan_add) {
-            addToTrolley();
-        }
+
     }
 
     private void addToTrolley() {
@@ -63,8 +58,6 @@ public class ScannerActivity extends BaseActivity implements OnClickListener {
 //we have a result
             scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-            formatTxt.setText("FORMAT: " + scanFormat);
-            contentTxt.setText("CONTENT: " + scanContent);
             addToTrolley();
         }
         else{
