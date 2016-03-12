@@ -1,122 +1,80 @@
 package realexhack.realexhack;
-//package com.realexpayments.hpp;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.app.Activity;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import android.app.ActionBar.LayoutParams;
+
 import Model.TrolleyItem;
 import Repository.Trolley;
-
 import com.postquantum.pqcheck.android.PQCheckActivity;
 import com.postquantum.pqcheck.clientlib.response.ApiKey;
 import com.realexpayments.hpp.*;
 
-public class MainActivity extends BaseActivity implements HPPManagerListener {
-     Trolley trolley = Trolley.getInstance();
-    public static Map<String, TrolleyItem> stock;
+import java.util.UUID;
 
+public class ListMainActivity extends BaseActivity  implements HPPManagerListener{
+
+    ListView list;
+    CustomAdapter adapter;
+    public  ListMainActivity CustomListView = null;
+    Trolley trolley = Trolley.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_listmainview);
 
-        trolley.setItems(new ArrayList<TrolleyItem>());
-        populateFakeTrolleyItems();
-        stock = new HashMap<String, TrolleyItem>();
-        populateStocks();
-        setContentView(R.layout.activity_main);
+        CustomListView = this;
 
-        final LinearLayout lm = (LinearLayout) findViewById(R.id.linearLayout);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        for(int j=1;j< 9;j++)
-        {
+        /******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
+        //setListData();
 
+        Resources res =getResources();
+        list= ( ListView )findViewById( R.id.list );  // List defined in XML ( See Below )
 
-            // Create LinearLayout to view elemnts
-            LinearLayout ll = new LinearLayout(this);
-            ll.setOrientation(LinearLayout.HORIZONTAL);
+        /**************** Create Custom Adapter *********/
+        adapter=new CustomAdapter( CustomListView, trolley.getItems(),res );
+        list.setAdapter( adapter );
 
-            TextView product = new TextView(this);
-            product.setText(" Item"+j+"    ");
+    }
 
-            //Add textView to LinearLayout
-            ll.addView(product);
+   /* *//****** Function to set data in ArrayList *************//*
+    public void setListData()
+    {
 
-            TextView price = new TextView(this);
-            price.setText("  £"+j+"     ");
+        for (int i = 0; i < 11; i++) {
 
-            //Add textView to LinearLayout
-            ll.addView(price);
+            final ListModel sched = new ListModel();
 
-            final Button btn = new Button(this);
-            btn.setId(j+1);
-            btn.setText("Add To Cart");
+            *//******* Firstly take data in model object ******//*
+            sched.setCompanyName("Company "+i);
+            sched.setImage("image"+i);
+            sched.setUrl("http:\\www."+i+".com");
 
-            // set the layoutParams on the button
-            btn.setLayoutParams(params);
-
-            final int index = j;
-
-            //Create click listener for dynamically created button
-            btn.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-
-                    //Clicked button index
-                    Log.i("TAG", "index :" + index);
-
-
-                    Toast.makeText(getApplicationContext(),
-                            "Now Cart size: ",
-                            Toast.LENGTH_LONG).show();
-
-                }
-            });
-
-            //Add button to LinearLayout
-            ll.addView(btn);
-
-            //Add LinearLayout to XML layout
-            lm.addView(ll);
+            *//******** Take Model Object in ArrayList **********//*
+            CustomListViewValuesArr.add( sched );
         }
 
-        /******** Dynamically create view elements - End **********/
+    }*/
 
-       /* secondBtn.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-
-                Intent i = new Intent(getBaseContext(), SecondScreen.class);
-                startActivity(i);
-            }
-        });*/
-
-
-
-}
-
-    public void show_pqcheck_btn_onClick(View view){
+    public void checkout_btn_onClick(View view){
         enrol("enrol", "012345");
+        //TestRealex();
+
+        //MainActivity.enrol(this, "enrol", "012345");
     }
 
-    public void show_realex_btn_onClick(View view){
-        TestRealex();
-    }
-
-
-    private   void enrol( String enrolmentLink, String transcript) {
+    private void enrol(String enrolmentLink, String transcript) {
         Intent intent = new Intent(this, PQCheckActivity.class);
 
         // Set the action ACTION_ENROL.
@@ -135,8 +93,8 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
         intent.putExtra(PQCheckActivity.EXTRA_API_KEY, new ApiKey(UUID.fromString("627b097f-10ca-42b2-b733-d121948347b5")
                 , "ThCe8ggd4G0afu0Qw/hIJmnzriig3TNCfWNuvSB1jBgsFDbqcNV4qQepEmAjYFkXJ7m9pNdR1kR5Vo+OkFsR8g=="));
 
-                // MY_ENROLMENT_REQUEST_CODE is arbitrary and is only used within this activity.
-                startActivityForResult(intent, 1234);
+        // MY_ENROLMENT_REQUEST_CODE is arbitrary and is only used within this activity.
+        startActivityForResult(intent, 1234);
     }
 
     @Override
@@ -147,10 +105,12 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
             switch (resultCode) {
                 case Activity.RESULT_OK:
                     // We have completed the enrolment process successfully.
-                    Log.d("Enrolment completed","Enrolment completed");
+                    Log.d("Enrolment completed", "Enrolment completed");
                     Toast.makeText(getApplicationContext(),
                             "Enrolment Successful", Toast.LENGTH_LONG).show();
+                    //android.os.SystemClock.sleep(10000);
                     TestRealex();
+
                     break;
                 case PQCheckActivity.RESULT_CLIENT_ERROR:
                 case PQCheckActivity.RESULT_SERVER_ERROR:
@@ -180,7 +140,7 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
         Fragment hppManagerFragment = hppManager.newInstance();
         getFragmentManager()
                 .beginTransaction()
-                .add(R.id.container, hppManagerFragment,"hppManagerFragment")
+                .add(R.id.container1, hppManagerFragment,"hppManagerFragment1")
                 .commit();
 
 
@@ -192,7 +152,7 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
         Log.d("completed", "completed");
         Toast.makeText(getApplicationContext(),
                 "Payment Successful", Toast.LENGTH_LONG).show();
-        Fragment f = getFragmentManager().findFragmentByTag("hppManagerFragment");
+        Fragment f = getFragmentManager().findFragmentByTag("hppManagerFragment1");
         if(f!=null) getFragmentManager()
                 .beginTransaction().remove(f).commit();
 
@@ -203,21 +163,25 @@ public class MainActivity extends BaseActivity implements HPPManagerListener {
     @Override
     public void hppManagerFailedWithError(HPPError error) {
         //something went wrong
+        Log.d("HPPManager","Error");
     }
 
     @Override
     public void hppManagerCancelled() { //operation was canceled
+        Log.d("HPPManager","Cancelled");
     }
+    /*****************  This function used by adapter ****************/
+    public void onItemClick(int mPosition)
+    {
+        TrolleyItem tempValues = ( TrolleyItem ) trolley.getItems().get(mPosition);
 
-    private void populateStocks() {
-        stock.put("5449000028921", new TrolleyItem(1, "coke", 2,5));
-    }
 
-    private  void populateFakeTrolleyItems(){
-        for(int i =1;i<10;i++){
-            TrolleyItem item = new TrolleyItem(i,"coke"+i,2,5);
-            trolley.add(item);
-        }
+        // SHOW ALERT
 
+        Toast.makeText(CustomListView,
+                "" + tempValues.getName()
+                       ,
+        Toast.LENGTH_LONG)
+        .show();
     }
 }
