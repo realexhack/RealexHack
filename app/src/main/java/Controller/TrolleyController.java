@@ -12,7 +12,7 @@ import Repository.Trolley;
 public class TrolleyController extends Application{
 
     private  ArrayList<TrolleyItem> trolleyItems = new ArrayList<TrolleyItem>();
-    private Trolley myCart = new Trolley();
+    private Trolley myCart =  Trolley.getInstance();
 
 
     public TrolleyItem getTrolleyItem(int pPosition) {

@@ -44,4 +44,9 @@ public class Trolley {
         items.remove(item);
     }
 
+    public int getTrolleySize() {
+
+        return items.size();
+    }
+
 }
